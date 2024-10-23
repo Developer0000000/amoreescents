@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Text Animation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .randomText {
+            font-size: 3em;
+            margin: 20px 0;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="randomText"></h1>
+        <h2 class="randomText"></h2>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="./gsapSplitText.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+    <!-- <script>
+        gsap.registerPlugin(TextPlugin);
+
+        // Final text that will be displayed after random characters
+        const finalTexts = [
+            "WONDERLAND",
+            "BRAND EXPERIENCE DESIGN"
+        ];
+
+        // Random characters to show initially
+        const randomChars = "!@#$%^&*()_+=-[]{}|;:<>?1234567890";
+
+        // Function to generate random string of specific length
+        function getRandomString(length) {
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+            }
+            return result;
+        }
+
+        // Apply the random characters to both text elements
+        const textElements = document.querySelectorAll(".randomText");
+        textElements.forEach((el, index) => {
+            const finalText = finalTexts[index];
+            // Initially set random characters with the same length as the final text
+            el.textContent = getRandomString(finalText.length);
+
+            // Animate random characters for 5 seconds
+            gsap.to(el, {
+                duration: 0.05, // Keep it fast to give a "glitch" effect
+                repeat: 100, // Repeat many times for 5 seconds duration
+                onRepeat: () => {
+                    el.textContent = getRandomString(finalText.length);
+                }
+            });
+
+            // After 5 seconds, switch to the final text (stop the random effect)
+            setTimeout(() => {
+                gsap.to(el, {
+                    duration: 1.5,
+                    text: finalText, // The final text to display
+                    ease: "power2.inOut"
+                });
+            }, 5000);
+        });
+
+    </script> -->
+
+    <script>
+        gsap.registerPlugin(TextPlugin);
+    
+        // Final text that will be displayed after random characters
+        const finalTexts = [
+            "WONDERLAND",
+            "BRAND EXPERIENCE DESIGN"
+        ];
+    
+        // Random characters to show initially
+        const randomChars = "!@#$%^&*()_+=-[]{}|;:<>?1234567890";
+    
+        // Function to generate random string of specific length
+        function getRandomString(length) {
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+            }
+            return result;
+        }
+    
+        // Apply the random characters to both text elements
+        const textElements = document.querySelectorAll(".randomText");
+        textElements.forEach((el, index) => {
+            const finalText = finalTexts[index];
+            const textLength = finalText.length;
+    
+            // Initially set random characters with the same length as the final text
+            el.textContent = getRandomString(textLength);
+    
+            // Animate random characters for 5 seconds
+            gsap.to(el, {
+                duration: 0.05, // Fast glitch effect
+                repeat: 100,
+                onRepeat: () => {
+                    el.textContent = getRandomString(textLength);
+                }
+            });
+    
+            // After 5 seconds, reveal the final text from right to left
+            setTimeout(() => {
+                let currentText = getRandomString(textLength);
+                el.textContent = currentText;
+    
+                // Animate each character from right to left
+                for (let i = textLength - 1; i >= 0; i--) {
+                    setTimeout(() => {
+                        currentText = currentText.substring(0, i) + finalText[i] + currentText.substring(i + 1);
+                        el.textContent = currentText;
+                    }, (textLength - i) * 100); // 100ms delay for each character
+                }
+            }, 5000);
+        });
+    </script>
+    
+
+
+</body>
+
+</html>

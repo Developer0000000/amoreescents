@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Context Menu</title>
+    <style>
+        body{
+            background-color: #333;
+            color: #fff;
+        }
+        /* Custom context menu styles */
+        .custom-menu {
+            display: none;
+            position: absolute;
+            z-index: 10000;
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            border-radius: 8px;
+            width: 150px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+            padding: 10px 0;
+        }
+
+        .custom-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .custom-menu li {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .custom-menu li:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Right-click anywhere to open the custom context menu!</h1>
+
+    <!-- Custom Context Menu -->
+    <div class="custom-menu" id="customMenu">
+        <ul>
+            <li>Option 1</li>
+            <li>Option 2</li>
+            <li>Option 3</li>
+            <li>Option 4</li>
+        </ul>
+    </div>
+
+    <script>
+        // Custom context menu functionality
+        const customMenu = document.getElementById('customMenu');
+
+        window.addEventListener('contextmenu', (e) => {
+            e.preventDefault(); // Prevent default context menu
+
+            const { clientX: mouseX, clientY: mouseY } = e;
+
+            // Display custom menu at the mouse position
+            customMenu.style.top = `${mouseY}px`;
+            customMenu.style.left = `${mouseX}px`;
+            customMenu.style.display = 'block';
+        });
+
+        // Hide the custom menu when clicking anywhere else
+        window.addEventListener('click', () => {
+            customMenu.style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>
